@@ -1,0 +1,39 @@
+apply plugin: 'groovy'
+apply plugin: 'maven-publish'
+
+group 'pl.mlgn'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'io.kubernetes:client-java:2.0.0'
+    compile group: 'org.yaml', name: 'snakeyaml', version: '1.23'
+    compile gradleApi()
+    compile localGroovy()
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier "sources"
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Class': 'pl.kubernetes.client.AbstractKubernetesTask'
+    }
+}
+
+publishing {
+    publications {
+        mavenGroovy(MavenPublication) {
+            from components.java
+            artifact sourceJar
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
+}
