@@ -71,8 +71,8 @@ abstract class AbstractKubernetesTask extends DefaultTask {
             client.setBasePath(getAddress())
         }
         if (getApiKey()) {
-            ApiKeyAuth BearerToken = (ApiKeyAuth) defaultClient.getAuthentication("BearerToken");
-            BearerToken.setApiKey(getApiKey());
+            ApiKeyAuth BearerToken = (ApiKeyAuth) client.getAuthentication("BearerToken")
+            BearerToken.setApiKey(getApiKey())
         }
         Configuration.setDefaultApiClient(client)
     }
