@@ -1,13 +1,5 @@
 package pl.kubernetes.client
 
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileNotFoundException
-import java.io.FileReader
-import java.io.InputStream
-import java.util.HashMap
-import java.util.Map
-
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
@@ -17,9 +9,6 @@ import io.kubernetes.client.auth.ApiKeyAuth
 import io.kubernetes.client.util.Config
 import io.kubernetes.client.ApiClient
 import io.kubernetes.client.Configuration
-import io.kubernetes.client.models.ExtensionsV1beta1Deployment
-import io.kubernetes.client.models.V1Namespace
-import io.kubernetes.client.models.V1Service
 
 
 abstract class AbstractKubernetesTask extends DefaultTask {
@@ -64,10 +53,10 @@ abstract class AbstractKubernetesTask extends DefaultTask {
         return conf.toString()
     }
 
-    def setClient() {
+    def initApiClient() {
         ApiClient client = Config.defaultClient()
         if (getAddress()) {
-            System.out.println("Kubernetes address: " + getAddress().toString())
+            logger.debug("Kubernetes address: ${getAddress().toString()}")
             client.setBasePath(getAddress())
         }
         if (getApiKey()) {

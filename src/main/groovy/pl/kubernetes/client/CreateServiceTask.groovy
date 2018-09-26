@@ -11,13 +11,12 @@ class CreateServiceTask extends AbstractKubernetesTask {
         KubernetesFileDescriptor kubernetesFileDescriptor = new KubernetesFileDescriptor(getConf())
         V1Service body = (V1Service) kubernetesFileDescriptor.mapFileToKubernetesObject()
 
-        setClient()
+        initApiClient()
         CoreV1Api api = new CoreV1Api()
         
         try {
-            logger.debug(body.toString())
-            V1Service result = api.createNamespacedService(getNamespace(), body, 'pretty_example')
-            logger.info(result.toString())
+            V1Service response = api.createNamespacedService(getNamespace(), body, 'pretty_example')
+            logger.info("Response: ${response.toString()}")
         } catch (ApiException e) {
             logger.error("Exception when calling CoreV1Api#createNamespacedService:\n${e.getResponseBody()}");
             e.printStackTrace();

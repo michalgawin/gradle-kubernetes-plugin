@@ -1,27 +1,13 @@
 package pl.kubernetes.client
 
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileNotFoundException
-import java.io.FileReader
-import java.io.InputStream
-import java.util.HashMap
-import java.util.Map
-
 import com.google.gson.JsonSyntaxException
 
 import io.kubernetes.client.ApiException
-import io.kubernetes.client.Configuration
 import io.kubernetes.client.apis.AppsV1Api
 import io.kubernetes.client.models.ExtensionsV1beta1Deployment
 import io.kubernetes.client.models.V1ReplicaSetList
 import io.kubernetes.client.models.V1DeleteOptions
-import io.kubernetes.client.models.V1Namespace
-import io.kubernetes.client.models.V1Service
 import io.kubernetes.client.models.V1Status
-
-import java.io.IOException
-
 
 class DeleteReplicaSetTask extends AbstractKubernetesTask {
 
@@ -29,7 +15,7 @@ class DeleteReplicaSetTask extends AbstractKubernetesTask {
         KubernetesFileDescriptor kubernetesFileDescriptor = new KubernetesFileDescriptor(getConf())
         ExtensionsV1beta1Deployment deployment = (ExtensionsV1beta1Deployment) kubernetesFileDescriptor.mapFileToKubernetesObject()
 
-        setClient()
+        initApiClient()
         AppsV1Api api = new AppsV1Api()
         
         String pretty = null
@@ -57,7 +43,7 @@ class DeleteReplicaSetTask extends AbstractKubernetesTask {
             )
 
             result.items.each { replicaSet ->
-                String replicaSetName = replicaSet.metadata.name.toString()
+                String replicaSetName = replicaSet.metadata.name
                 Integer gracePeriodSeconds = 0
                 Boolean orphanDependents = null
                 String propagationPolicy = 'Foreground'
@@ -70,13 +56,13 @@ class DeleteReplicaSetTask extends AbstractKubernetesTask {
                     orphanDependents,
                     propagationPolicy
                 )
-                logger.info(response.toString())
+                logger.info("Response: ${response.toString()}")
             }
         } catch (JsonSyntaxException e) {
-            logger.error("Known issue: https://github.com/kubernetes-client/java/issues/86");
+            logger.error("Known issue: https://github.com/kubernetes-client/java/issues/86")
         } catch (ApiException e) {
-            logger.error("Exception when calling AppsV1beta1Api#deleteNamespacedDeployment:\n${e.getResponseBody()}");
-            e.printStackTrace();
+            logger.error("Exception when calling AppsV1beta1Api#deleteNamespacedDeployment:\n${e.getResponseBody()}")
+            e.printStackTrace()
         }
     }
 

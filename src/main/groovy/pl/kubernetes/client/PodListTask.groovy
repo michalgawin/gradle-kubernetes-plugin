@@ -8,7 +8,7 @@ import io.kubernetes.client.models.V1PodList
 class PodListTask extends AbstractKubernetesTask {
 
     void taskAction() {
-        setClient()
+        initApiClient()
 
         CoreV1Api api = new CoreV1Api()
         V1PodList list = api.listPodForAllNamespaces(
