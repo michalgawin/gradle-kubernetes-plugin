@@ -1,5 +1,6 @@
 apply plugin: 'groovy'
 apply plugin: 'maven-publish'
+apply plugin: 'idea'
 
 group 'pl.mlgn'
 version '1.0'
