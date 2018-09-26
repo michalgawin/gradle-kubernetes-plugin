@@ -1,2 +1,5 @@
 .gradle/
 build/
+gradle-kubernetes-plugin.iws
+gradle-kubernetes-plugin.ipr
+gradle-kubernetes-plugin.iml
