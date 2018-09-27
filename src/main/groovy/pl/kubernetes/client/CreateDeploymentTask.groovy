@@ -8,7 +8,7 @@ import io.kubernetes.client.models.ExtensionsV1beta1Deployment
 class CreateDeploymentTask extends AbstractKubernetesTask {
 
     void taskAction() {
-        KubernetesFileDescriptor kubernetesFileDescriptor = new KubernetesFileDescriptor(getConf())
+        KubernetesFileDescriptor kubernetesFileDescriptor = new KubernetesFileDescriptor(getRequestFile())
         ExtensionsV1beta1Deployment body = (ExtensionsV1beta1Deployment) kubernetesFileDescriptor.mapFileToKubernetesObject()
 
         initApiClient()
@@ -16,6 +16,9 @@ class CreateDeploymentTask extends AbstractKubernetesTask {
         
         try {
             ExtensionsV1beta1Deployment response = api.createNamespacedDeployment(getNamespace(), body, 'pretty_example')
+            if (responseFile) {
+                responseFile.text = response.toString()
+            }
             logger.info("Response: ${response.toString()}")
         } catch (ApiException e) {
             logger.error("Exception when calling AppsV1beta1Api#createNamespacedDeployment:\n${e.getResponseBody()}")

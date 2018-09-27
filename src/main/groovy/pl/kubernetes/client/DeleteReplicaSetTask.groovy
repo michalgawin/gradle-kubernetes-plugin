@@ -12,7 +12,7 @@ import io.kubernetes.client.models.V1Status
 class DeleteReplicaSetTask extends AbstractKubernetesTask {
 
     void taskAction() {
-        KubernetesFileDescriptor kubernetesFileDescriptor = new KubernetesFileDescriptor(getConf())
+        KubernetesFileDescriptor kubernetesFileDescriptor = new KubernetesFileDescriptor(getRequestFile())
         ExtensionsV1beta1Deployment deployment = (ExtensionsV1beta1Deployment) kubernetesFileDescriptor.mapFileToKubernetesObject()
 
         initApiClient()
@@ -29,6 +29,7 @@ class DeleteReplicaSetTask extends AbstractKubernetesTask {
         Integer timeoutSeconds = null
         Boolean watch = null
 
+        def responseBuilder = StringBuilder.newInstance()
         try {
             V1ReplicaSetList result = api.listNamespacedReplicaSet(getNamespace(),
                 pretty,
@@ -56,7 +57,11 @@ class DeleteReplicaSetTask extends AbstractKubernetesTask {
                     orphanDependents,
                     propagationPolicy
                 )
+                responseBuilder << response.toString() << '\n'
                 logger.info("Response: ${response.toString()}")
+            }
+            if (responseFile) {
+                responseFile.text = responseBuilder.toString()
             }
         } catch (JsonSyntaxException e) {
             logger.error("Known issue: https://github.com/kubernetes-client/java/issues/86")

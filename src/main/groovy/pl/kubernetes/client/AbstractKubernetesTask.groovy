@@ -1,5 +1,6 @@
 package pl.kubernetes.client
 
+import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
@@ -17,13 +18,19 @@ abstract class AbstractKubernetesTask extends DefaultTask {
     def address
 
     @Input @Optional
+    def authentication = "BearerToken"
+
+    @Input @Optional
     def apiKey
 
     @Input @Optional
     def namespace
 
     @Input @Optional
-    File conf
+    File requestFile
+
+    @OutputFile
+    File responseFile
 
     String getAddress() {
         if (address instanceof Closure) {
@@ -46,11 +53,18 @@ abstract class AbstractKubernetesTask extends DefaultTask {
         return namespace.toString()
     }
 
-    String getConf() {
-        if (conf instanceof Closure) {
-            return conf()
+    File getRequestFile() {
+        if (requestFile instanceof Closure) {
+            return requestFile()
         }
-        return conf.toString()
+        return requestFile
+    }
+
+    File getResponseFile() {
+        if (responseFile instanceof Closure) {
+            return responseFile()
+        }
+        return responseFile
     }
 
     def initApiClient() {
@@ -59,8 +73,8 @@ abstract class AbstractKubernetesTask extends DefaultTask {
             logger.debug("Kubernetes address: ${getAddress().toString()}")
             client.setBasePath(getAddress())
         }
-        if (getApiKey()) {
-            ApiKeyAuth BearerToken = (ApiKeyAuth) client.getAuthentication("BearerToken")
+        if (getApiKey() && getAuthentication()) {
+            ApiKeyAuth BearerToken = (ApiKeyAuth) client.getAuthentication(getAuthentication())
             BearerToken.setApiKey(getApiKey())
         }
         Configuration.setDefaultApiClient(client)

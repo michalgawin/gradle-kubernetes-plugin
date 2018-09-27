@@ -11,7 +11,7 @@ import io.kubernetes.client.models.V1Status
 class DeleteDeploymentTask extends AbstractKubernetesTask {
 
     void taskAction() {
-        KubernetesFileDescriptor kubernetesFileDescriptor = new KubernetesFileDescriptor(getConf())
+        KubernetesFileDescriptor kubernetesFileDescriptor = new KubernetesFileDescriptor(getRequestFile())
         ExtensionsV1beta1Deployment deployment = (ExtensionsV1beta1Deployment) kubernetesFileDescriptor.mapFileToKubernetesObject()
 
         initApiClient()
@@ -30,6 +30,9 @@ class DeleteDeploymentTask extends AbstractKubernetesTask {
                 orphanDependents,
                 propagationPolicy
             )
+            if (responseFile) {
+                responseFile.text = response.toString()
+            }
             logger.info("Response: ${response.toString()}")
         } catch (JsonSyntaxException e) {
             logger.error("Known issue: https://github.com/kubernetes-client/java/issues/86")
