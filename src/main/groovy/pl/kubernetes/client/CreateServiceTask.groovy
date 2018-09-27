@@ -8,7 +8,7 @@ import io.kubernetes.client.models.V1Service
 class CreateServiceTask extends AbstractKubernetesTask {
 
     void taskAction() {
-        KubernetesFileDescriptor kubernetesFileDescriptor = new KubernetesFileDescriptor(getConf())
+        KubernetesFileDescriptor kubernetesFileDescriptor = new KubernetesFileDescriptor(getRequestFile())
         V1Service body = (V1Service) kubernetesFileDescriptor.mapFileToKubernetesObject()
 
         initApiClient()
@@ -16,6 +16,9 @@ class CreateServiceTask extends AbstractKubernetesTask {
         
         try {
             V1Service response = api.createNamespacedService(getNamespace(), body, 'pretty_example')
+            if (responseFile) {
+                responseFile.text = response.toString()
+            }
             logger.info("Response: ${response.toString()}")
         } catch (ApiException e) {
             logger.error("Exception when calling CoreV1Api#createNamespacedService:\n${e.getResponseBody()}");

@@ -21,10 +21,12 @@ Gradle plugin for kubernetes.
         address = 'http://localhost:8080'
         namespace = 'default'
         apiKey = 'AbCdEfGh01234'
+		authentication = 'BearerToken'
     }
 
     task createDeploymentTask(type: CreateDeploymentTask) {
-        conf = file('deployment.yaml')
+        requestFile = file('deployment.yaml')
+		responseFile = file("${buildDir}/deployment_response.yaml")
     }
 
 ## Documentation
@@ -33,7 +35,7 @@ Gradle plugin for kubernetes.
 |Task|Description|Kind of configuration file|
 |----------------|-------------------------------|-----------------|
 |CreateDeploymentTask|create Deployment based on configuration file|`Deployment`|
-|DeleteDeploymentTask|delete Deployment,ReplicaSet and pods based on configuration file|`Deployment`|
+|DeleteDeploymentTask|delete Deployment,ReplicaSet and PODs based on configuration file|`Deployment`|
 |CreateServiceTask|create Service based on configuration file|`Service`|
 |DeleteServiceTask|delete Service based on configuration file|`Service`|
 |DeleteReplicaSetTask|delete ReplicaSet and PODs based on configuration file|`Deployment`|

@@ -11,7 +11,7 @@ class PodListTask extends AbstractKubernetesTask {
         initApiClient()
 
         CoreV1Api api = new CoreV1Api()
-        V1PodList list = api.listPodForAllNamespaces(
+        V1PodList response = api.listPodForAllNamespaces(
             null,
             null,
             null,
@@ -23,8 +23,11 @@ class PodListTask extends AbstractKubernetesTask {
             null
         )
 
-        for (V1Pod item : list.getItems()) {
+        for (V1Pod item : response.getItems()) {
             System.out.println(item.getMetadata().getName())
+        }
+        if (responseFile) {
+            responseFile.text = response.toString()
         }
     }
 }
