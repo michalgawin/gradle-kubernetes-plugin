@@ -11,8 +11,8 @@ import io.kubernetes.client.models.V1Status
 class DeleteDeploymentTask extends AbstractKubernetesTask {
 
     void taskAction() {
-        KubernetesFileDescriptor kubernetesFileDescriptor = new KubernetesFileDescriptor(getRequestFile())
-        ExtensionsV1beta1Deployment deployment = (ExtensionsV1beta1Deployment) kubernetesFileDescriptor.mapFileToKubernetesObject()
+        KubernetesResourceDescriptor kubernetesResourceDescriptor = new KubernetesResourceDescriptor(getRequestFile())
+        ExtensionsV1beta1Deployment deployment = (ExtensionsV1beta1Deployment) kubernetesResourceDescriptor.getObjectModel()
 
         initApiClient()
         AppsV1Api api = new AppsV1Api()

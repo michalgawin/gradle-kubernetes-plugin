@@ -11,8 +11,8 @@ import io.kubernetes.client.models.V1Status
 class DeleteServiceTask extends AbstractKubernetesTask {
 
     void taskAction() {
-        KubernetesFileDescriptor kubernetesFileDescriptor = new KubernetesFileDescriptor(getRequestFile())
-        V1Service service = (V1Service) kubernetesFileDescriptor.mapFileToKubernetesObject()
+        KubernetesResourceDescriptor kubernetesResourceDescriptor = new KubernetesResourceDescriptor(getRequestFile())
+        V1Service service = (V1Service) kubernetesResourceDescriptor.getObjectModel()
 
         initApiClient()
         CoreV1Api api = new CoreV1Api()

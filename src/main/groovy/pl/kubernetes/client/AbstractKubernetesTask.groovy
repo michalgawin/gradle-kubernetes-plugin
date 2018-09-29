@@ -11,7 +11,6 @@ import io.kubernetes.client.util.Config
 import io.kubernetes.client.ApiClient
 import io.kubernetes.client.Configuration
 
-
 abstract class AbstractKubernetesTask extends DefaultTask {
 
     @Input
@@ -74,8 +73,8 @@ abstract class AbstractKubernetesTask extends DefaultTask {
             client.setBasePath(getAddress())
         }
         if (getApiKey() && getAuthentication()) {
-            ApiKeyAuth BearerToken = (ApiKeyAuth) client.getAuthentication(getAuthentication())
-            BearerToken.setApiKey(getApiKey())
+            ApiKeyAuth apiKeyAuth = (ApiKeyAuth) client.getAuthentication(getAuthentication())
+            apiKeyAuth.setApiKey(getApiKey())
         }
         Configuration.setDefaultApiClient(client)
     }

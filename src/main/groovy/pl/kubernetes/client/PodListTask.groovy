@@ -4,7 +4,6 @@ import io.kubernetes.client.apis.CoreV1Api
 import io.kubernetes.client.models.V1Pod
 import io.kubernetes.client.models.V1PodList
 
-
 class PodListTask extends AbstractKubernetesTask {
 
     void taskAction() {

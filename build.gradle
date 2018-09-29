@@ -12,6 +12,7 @@ repositories {
 dependencies {
     compile 'io.kubernetes:client-java:2.0.0'
     compile group: 'org.yaml', name: 'snakeyaml', version: '1.23'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.4'
     compile gradleApi()
     compile localGroovy()
 }

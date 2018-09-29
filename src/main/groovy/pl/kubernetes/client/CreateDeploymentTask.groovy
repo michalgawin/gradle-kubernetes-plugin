@@ -4,12 +4,11 @@ import io.kubernetes.client.ApiException
 import io.kubernetes.client.apis.ExtensionsV1beta1Api
 import io.kubernetes.client.models.ExtensionsV1beta1Deployment
 
-
 class CreateDeploymentTask extends AbstractKubernetesTask {
 
     void taskAction() {
-        KubernetesFileDescriptor kubernetesFileDescriptor = new KubernetesFileDescriptor(getRequestFile())
-        ExtensionsV1beta1Deployment body = (ExtensionsV1beta1Deployment) kubernetesFileDescriptor.mapFileToKubernetesObject()
+        KubernetesResourceDescriptor kubernetesResourceDescriptor = new KubernetesResourceDescriptor(getRequestFile())
+        ExtensionsV1beta1Deployment body = (ExtensionsV1beta1Deployment) kubernetesResourceDescriptor.getObjectModel()
 
         initApiClient()
         ExtensionsV1beta1Api api = new ExtensionsV1beta1Api()

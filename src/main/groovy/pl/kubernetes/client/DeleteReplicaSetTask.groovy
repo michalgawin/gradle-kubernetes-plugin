@@ -12,8 +12,8 @@ import io.kubernetes.client.models.V1Status
 class DeleteReplicaSetTask extends AbstractKubernetesTask {
 
     void taskAction() {
-        KubernetesFileDescriptor kubernetesFileDescriptor = new KubernetesFileDescriptor(getRequestFile())
-        ExtensionsV1beta1Deployment deployment = (ExtensionsV1beta1Deployment) kubernetesFileDescriptor.mapFileToKubernetesObject()
+        KubernetesResourceDescriptor kubernetesResourceDescriptor = new KubernetesResourceDescriptor(getRequestFile())
+        ExtensionsV1beta1Deployment deployment = (ExtensionsV1beta1Deployment) kubernetesResourceDescriptor.getObjectModel()
 
         initApiClient()
         AppsV1Api api = new AppsV1Api()
@@ -23,7 +23,7 @@ class DeleteReplicaSetTask extends AbstractKubernetesTask {
         String fieldSelector = null
         Boolean includeUninitialized = true
         //remove brackets and replace character between key & value
-        String labelSelector = kubernetesFileDescriptor.getLabelSelectors()
+        String labelSelector = kubernetesResourceDescriptor.getLabelSelectors()
         Integer limit = 0
         String resourceVersion = null
         Integer timeoutSeconds = null

@@ -4,12 +4,11 @@ import io.kubernetes.client.ApiException
 import io.kubernetes.client.apis.CoreV1Api
 import io.kubernetes.client.models.V1Service
 
-
 class CreateServiceTask extends AbstractKubernetesTask {
 
     void taskAction() {
-        KubernetesFileDescriptor kubernetesFileDescriptor = new KubernetesFileDescriptor(getRequestFile())
-        V1Service body = (V1Service) kubernetesFileDescriptor.mapFileToKubernetesObject()
+        KubernetesResourceDescriptor kubernetesResourceDescriptor = new KubernetesResourceDescriptor(getRequestFile())
+        V1Service body = (V1Service) kubernetesResourceDescriptor.getObjectModel()
 
         initApiClient()
         CoreV1Api api = new CoreV1Api()
