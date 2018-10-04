@@ -1,4 +1,4 @@
-package pl.kubernetes.client
+package pl.kubernetes.client.tasks
 
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction

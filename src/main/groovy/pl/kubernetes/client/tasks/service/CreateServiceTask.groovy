@@ -1,8 +1,10 @@
-package pl.kubernetes.client
+package pl.kubernetes.client.tasks.service
 
 import io.kubernetes.client.ApiException
 import io.kubernetes.client.apis.CoreV1Api
 import io.kubernetes.client.models.V1Service
+import pl.kubernetes.client.KubernetesResourceDescriptor
+import pl.kubernetes.client.tasks.AbstractKubernetesTask
 
 class CreateServiceTask extends AbstractKubernetesTask {
 
@@ -20,7 +22,7 @@ class CreateServiceTask extends AbstractKubernetesTask {
             }
             logger.info("Response: ${response.toString()}")
         } catch (ApiException e) {
-            logger.error("Exception when calling CoreV1Api#createNamespacedService:\n${e.getResponseBody()}")
+            logger.error("Create of Service failed:\n${e.getResponseBody()}")
             e.printStackTrace()
         }
     }

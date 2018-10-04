@@ -2,6 +2,7 @@ package pl.kubernetes.client
 
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
+import pl.kubernetes.client.tasks.AbstractKubernetesTask
 
 import static org.assertj.core.api.Assertions.assertThat
 import static org.mockito.Mockito.CALLS_REAL_METHODS

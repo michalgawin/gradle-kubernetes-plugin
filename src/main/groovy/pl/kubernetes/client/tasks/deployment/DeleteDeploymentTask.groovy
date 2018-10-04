@@ -1,12 +1,12 @@
-package pl.kubernetes.client
-
-import com.google.gson.JsonSyntaxException
+package pl.kubernetes.client.tasks.deployment
 
 import io.kubernetes.client.ApiException
 import io.kubernetes.client.apis.AppsV1Api
 import io.kubernetes.client.models.ExtensionsV1beta1Deployment
 import io.kubernetes.client.models.V1DeleteOptions
 import io.kubernetes.client.models.V1Status
+import pl.kubernetes.client.KubernetesResourceDescriptor
+import pl.kubernetes.client.tasks.AbstractKubernetesTask
 
 class DeleteDeploymentTask extends AbstractKubernetesTask {
 
@@ -34,10 +34,8 @@ class DeleteDeploymentTask extends AbstractKubernetesTask {
                 responseFile.text = response.toString()
             }
             logger.info("Response: ${response.toString()}")
-        } catch (JsonSyntaxException e) {
-            logger.error("Known issue: https://github.com/kubernetes-client/java/issues/86")
         } catch (ApiException e) {
-            logger.error("Exception when calling AppsV1beta1Api#deleteNamespacedDeployment:\n${e.getResponseBody()}")
+            logger.error("Delete of Deployment failed:\n${e.getResponseBody()}")
             e.printStackTrace()
         }
     }

@@ -1,7 +1,7 @@
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-import pl.kubernetes.client.AbstractKubernetesTask
+import pl.kubernetes.client.tasks.AbstractKubernetesTask
 
 class KubernetesPluginExtension {
     String address = 'http://127.0.0.1:8080'
