@@ -15,6 +15,13 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.4'
     compile gradleApi()
     compile localGroovy()
+
+    testCompile 'org.assertj:assertj-core:3.11.1'
+    testCompile 'org.mockito:mockito-all:1.10.19'
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+    testCompile 'org.junit.vintage:junit-vintage-engine:5.3.1'
+    testRuntime 'org.junit.jupiter:junit-jupiter-migrationsupport:5.3.1'
 }
 
 task sourceJar(type: Jar) {

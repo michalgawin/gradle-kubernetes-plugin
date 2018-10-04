@@ -26,10 +26,10 @@ abstract class AbstractKubernetesTask extends DefaultTask {
     def namespace
 
     @Input @Optional
-    File requestFile
+    def requestFile
 
     @OutputFile
-    File responseFile
+    def responseFile
 
     String getAddress() {
         if (address instanceof Closure) {
