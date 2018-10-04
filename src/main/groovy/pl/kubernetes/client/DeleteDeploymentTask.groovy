@@ -38,7 +38,7 @@ class DeleteDeploymentTask extends AbstractKubernetesTask {
             logger.error("Known issue: https://github.com/kubernetes-client/java/issues/86")
         } catch (ApiException e) {
             logger.error("Exception when calling AppsV1beta1Api#deleteNamespacedDeployment:\n${e.getResponseBody()}")
-            e.printStackTrace();
+            e.printStackTrace()
         }
     }
 

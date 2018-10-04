@@ -1,8 +1,8 @@
 package pl.kubernetes.client.formatter
 
 import io.kubernetes.client.models.ExtensionsV1beta1Deployment
-import io.kubernetes.client.models.V1Namespace
 import io.kubernetes.client.models.V1Service
+import io.kubernetes.client.models.V1beta1Ingress
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 
@@ -11,7 +11,7 @@ abstract class ResourceFileFormatStrategy {
     protected static final Logger logger = Logging.getLogger(ResourceFileFormatStrategy.class)
 
     Map<String,Object> mapKindToK8s = ['Deployment': ExtensionsV1beta1Deployment.class,
-                                       'Namespace': V1Namespace.class,
+                                       'Ingress': V1beta1Ingress.class,
                                        'Service': V1Service.class]
 
     abstract def getModel()

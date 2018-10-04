@@ -20,8 +20,8 @@ class CreateServiceTask extends AbstractKubernetesTask {
             }
             logger.info("Response: ${response.toString()}")
         } catch (ApiException e) {
-            logger.error("Exception when calling CoreV1Api#createNamespacedService:\n${e.getResponseBody()}");
-            e.printStackTrace();
+            logger.error("Exception when calling CoreV1Api#createNamespacedService:\n${e.getResponseBody()}")
+            e.printStackTrace()
         }
     }
 
