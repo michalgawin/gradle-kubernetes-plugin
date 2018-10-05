@@ -15,7 +15,7 @@ class YamlFileFormat extends ResourceFileFormatStrategy {
 
     @Override
     def getModel() {
-        return yaml.loadAs(new FileReader(resourceFile), (Class<Object>) mapKindToK8s.get(getKind()))
+        return yaml.loadAs(new FileReader(resourceFile), (Class<Object>) mapResourceToModel())
     }
 
     @Override

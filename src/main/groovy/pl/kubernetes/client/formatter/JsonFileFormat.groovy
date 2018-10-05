@@ -17,7 +17,7 @@ class JsonFileFormat extends ResourceFileFormatStrategy {
     @Override
     def getModel() {
         ObjectMapper objectMapper = new ObjectMapper()
-        return objectMapper.readValue(new FileReader(resourceFile), (Class<Object>) mapKindToK8s.get(getKind()))
+        return objectMapper.readValue(new FileReader(resourceFile), (Class<Object>) mapResourceToModel())
     }
 
     @Override

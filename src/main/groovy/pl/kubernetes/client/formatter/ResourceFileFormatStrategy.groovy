@@ -10,21 +10,27 @@ abstract class ResourceFileFormatStrategy {
 
     protected static final Logger logger = Logging.getLogger(ResourceFileFormatStrategy.class)
 
-    Map<String,Object> mapKindToK8s = ['Deployment': ExtensionsV1beta1Deployment.class,
-                                       'Ingress': V1beta1Ingress.class,
-                                       'Service': V1Service.class]
+    Map<String,Object> mapOfResourcesToModels = ['Deployment':
+                                                         ['extensions/v1beta1': ExtensionsV1beta1Deployment.class],
+                                                 'Ingress'   :
+                                                         ['extensions/v1beta1': V1beta1Ingress.class],
+                                                 'Service'   :
+                                                         ['v1': V1Service.class]
+    ]
 
     abstract def getModel()
 
     abstract def getMap()
 
-    String getKind() {
-        return getMap().get('kind')
+    def mapResourceToModel() {
+        return mapOfResourcesToModels
+                .get(getMap().get('kind'))
+                .get(getMap().get('apiVersion'))
     }
 
     /* Remove brackets and replace character between key & value. */
     String getLabelSelectors() {
-        return getFileMap().get('metadata').get('labels').toMapString()[1..-2].replaceAll(':', '=')
+        return getMap().get('metadata').get('labels').toMapString()[1..-2].replaceAll(':', '=')
     }
 
 }

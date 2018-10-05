@@ -38,6 +38,13 @@ abstract class AbstractKubernetesTask extends DefaultTask {
         return address.toString()
     }
 
+    String getAuthentication() {
+        if (authentication instanceof Closure) {
+            return authentication()
+        }
+        return authentication.toString()
+    }
+
     String getApiKey() {
         if (apiKey instanceof Closure) {
             return apiKey()
