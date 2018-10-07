@@ -1,33 +1,24 @@
 package pl.kubernetes.client.tasks.pod
 
-import io.kubernetes.client.apis.CoreV1Api
 import io.kubernetes.client.models.V1Pod
-import io.kubernetes.client.models.V1PodList
 import pl.kubernetes.client.tasks.AbstractKubernetesTask
 
 class PodListTask extends AbstractKubernetesTask {
 
     void taskAction() {
-        initApiClient()
+        List<V1Pod> pods = new Pod(getAddress(),
+                getNamespace(),
+                getApiKey(),
+                getAuthentication()
+        ).getAll().getItems()
 
-        CoreV1Api api = new CoreV1Api()
-        V1PodList response = api.listPodForAllNamespaces(
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        )
-
-        for (V1Pod item : response.getItems()) {
-            System.out.println(item.getMetadata().getName())
-        }
         if (responseFile) {
-            responseFile.text = response.toString()
+            def responseBuilder = StringBuilder.newInstance()
+            for (V1Pod v1Pod : pods) {
+                responseBuilder << v1Pod.toString() << '\n'
+            }
+            responseFile.text = responseBuilder.toString()
+            logger.info "${responseBuilder.toString()}"
         }
     }
 }

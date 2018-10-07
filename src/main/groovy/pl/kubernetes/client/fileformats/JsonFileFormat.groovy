@@ -1,4 +1,4 @@
-package pl.kubernetes.client.formatter
+package pl.kubernetes.client.fileformats
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import groovy.json.JsonSlurper
