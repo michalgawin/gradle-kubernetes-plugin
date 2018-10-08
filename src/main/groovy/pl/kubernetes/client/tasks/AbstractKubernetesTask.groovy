@@ -17,7 +17,7 @@ abstract class AbstractKubernetesTask extends DefaultTask {
     def address
 
     @Input @Optional
-    def authentication = "BearerToken"
+    def authentication = 'BearerToken'
 
     @Input @Optional
     def apiKey

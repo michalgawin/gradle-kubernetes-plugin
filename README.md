@@ -1,6 +1,6 @@
 # gradle-kubernetes-plugin
 
-Gradle plugin for kubernetes. 
+Gradle plugin for kubernetes. It creates/deletes resource based on file content.
 
 ## Example of build.gradle
 
@@ -38,6 +38,8 @@ Gradle plugin for kubernetes.
 |DeleteDeploymentTask|delete Deployment,ReplicaSet and PODs based on configuration file|`Deployment`|
 |CreateServiceTask|create Service based on configuration file|`Service`|
 |DeleteServiceTask|delete Service based on configuration file|`Service`|
+|CreateIngressTask|create Ingress based on configuration file|`Ingress`|
+|DeleteIngressTask|delete Ingress based on configuration file|`Ingress`|
 |DeleteReplicaSetTask|delete ReplicaSet and PODs based on configuration file|`Deployment`|
 |PodListTask|print all PODs|---|
 

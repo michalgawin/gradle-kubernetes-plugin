@@ -3,9 +3,9 @@ package pl.kubernetes.client
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 
-import pl.kubernetes.client.formatter.ResourceFileFormatStrategy
-import pl.kubernetes.client.formatter.JsonFileFormat
-import pl.kubernetes.client.formatter.YamlFileFormat
+import pl.kubernetes.client.fileformats.ResourceFileFormatStrategy
+import pl.kubernetes.client.fileformats.JsonFileFormat
+import pl.kubernetes.client.fileformats.YamlFileFormat
 
 class KubernetesResourceDescriptor {
 
@@ -27,6 +27,10 @@ class KubernetesResourceDescriptor {
         logger.debug("File content: ${obj.toString()}")
         return obj
 	}
+
+    def getClientApi() {
+        return resourceFileFormatStrategy.mapResourceToClientApi()
+    }
 
     /* Remove brackets and replace character between key & value. */
     String getLabelSelectors() {

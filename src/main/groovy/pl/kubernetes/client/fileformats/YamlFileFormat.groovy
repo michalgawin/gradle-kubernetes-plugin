@@ -1,4 +1,4 @@
-package pl.kubernetes.client.formatter
+package pl.kubernetes.client.fileformats
 
 import org.yaml.snakeyaml.Yaml
 
