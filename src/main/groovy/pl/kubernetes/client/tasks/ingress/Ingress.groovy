@@ -9,12 +9,11 @@ class Ingress extends AbstractResource {
 
     Ingress(String address, String namespace, String apiKey, String authenticationMethod) {
         super(address, namespace, apiKey, authenticationMethod)
-        initApiClient()
     }
 
     def create(File requestFile) {
         KubernetesResourceDescriptor kubernetesResourceDescriptor = new KubernetesResourceDescriptor(requestFile)
-        def api = kubernetesResourceDescriptor.getClientApi() // new ExtensionsV1beta1Api()
+        def api = kubernetesResourceDescriptor.getClientApi()
 
         try {
             def response = api.createNamespacedIngress(namespace,
@@ -31,7 +30,7 @@ class Ingress extends AbstractResource {
 
     def delete(File requestFile) {
         KubernetesResourceDescriptor kubernetesResourceDescriptor = new KubernetesResourceDescriptor(requestFile)
-        def api = kubernetesResourceDescriptor.getClientApi() // new ExtensionsV1beta1Api()
+        def api = kubernetesResourceDescriptor.getClientApi()
 
         try {
             String name = kubernetesResourceDescriptor.getObjectModel().metadata.name

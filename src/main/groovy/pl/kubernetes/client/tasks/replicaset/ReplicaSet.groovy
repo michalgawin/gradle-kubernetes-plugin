@@ -11,7 +11,6 @@ class ReplicaSet extends AbstractResource {
 
     ReplicaSet(String address, String namespace, String apiKey, String authenticationMethod) {
         super(address, namespace, apiKey, authenticationMethod)
-        initApiClient()
     }
 
     def delete(File requestFile) {

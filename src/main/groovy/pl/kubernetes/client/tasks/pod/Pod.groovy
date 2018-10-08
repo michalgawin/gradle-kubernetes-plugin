@@ -8,7 +8,6 @@ class Pod extends AbstractResource {
 
     Pod(String address, String namespace, String apiKey, String authenticationMethod) {
         super(address, namespace, apiKey, authenticationMethod)
-        initApiClient()
     }
 
     def get(String labels) {

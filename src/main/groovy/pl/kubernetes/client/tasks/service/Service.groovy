@@ -10,7 +10,6 @@ class Service extends AbstractResource {
 
     Service(String address, String namespace, String apiKey, String authenticationMethod) {
         super(address, namespace, apiKey, authenticationMethod)
-        initApiClient()
     }
 
     def create(File requestFile) {

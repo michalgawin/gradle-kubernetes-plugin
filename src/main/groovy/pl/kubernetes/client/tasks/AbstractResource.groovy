@@ -17,15 +17,28 @@ abstract class AbstractResource {
     final String apiKey
     final ApiClient client
 
+    AbstractResource(String address) {
+        this(address, 'default')
+    }
+
+    AbstractResource(String address, String namespace) {
+        this(address, namespace, null)
+    }
+
+    AbstractResource(String address, String namespace, String apiKey) {
+        this(address, namespace, apiKey, 'BearerToken')
+    }
+
     AbstractResource(String address, String namespace, String apiKey, String authenticationMethod) {
         this.address = address
         this.namespace = namespace
         this.authenticationMethod = authenticationMethod
         this.apiKey = apiKey
         this.client = Config.defaultClient()
+        setDefaultApiClient()
     }
 
-    protected void initApiClient() {
+    private void setDefaultApiClient() {
         if (address) {
             setApiClientAddress(address)
         }

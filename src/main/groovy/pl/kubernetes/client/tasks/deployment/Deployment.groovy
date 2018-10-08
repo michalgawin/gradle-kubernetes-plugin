@@ -9,12 +9,11 @@ class Deployment extends AbstractResource {
 
     Deployment(String address, String namespace, String apiKey, String authenticationMethod) {
         super(address, namespace, apiKey, authenticationMethod)
-        initApiClient()
     }
 
     def create(File requestFile) {
         KubernetesResourceDescriptor kubernetesResourceDescriptor = new KubernetesResourceDescriptor(requestFile)
-        def api = kubernetesResourceDescriptor.getClientApi() // new ExtensionsV1beta1Api()
+        def api = kubernetesResourceDescriptor.getClientApi()
 
         try {
             def response = api.createNamespacedDeployment(namespace,
@@ -31,7 +30,7 @@ class Deployment extends AbstractResource {
 
     def delete(File requestFile) {
         KubernetesResourceDescriptor kubernetesResourceDescriptor = new KubernetesResourceDescriptor(requestFile)
-        def api = kubernetesResourceDescriptor.getClientApi() // new AppsV1Api()
+        def api = kubernetesResourceDescriptor.getClientApi()
 
         String name = kubernetesResourceDescriptor.getObjectModel().metadata.name
         V1DeleteOptions v1DeleteOptions = new V1DeleteOptions()
