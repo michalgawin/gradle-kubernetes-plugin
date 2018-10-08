@@ -7,12 +7,8 @@ import io.kubernetes.client.models.ExtensionsV1beta1Deployment
 import io.kubernetes.client.models.V1Deployment
 import io.kubernetes.client.models.V1Service
 import io.kubernetes.client.models.V1beta1Ingress
-import org.gradle.api.logging.Logger
-import org.gradle.api.logging.Logging
 
 abstract class ResourceFileFormatStrategy {
-
-    protected static final Logger logger = Logging.getLogger(ResourceFileFormatStrategy.class)
 
     final Map<String,Object> mapOfResourcesToModels = ['Deployment':
                                                                ['extensions/v1beta1': ExtensionsV1beta1Deployment.class,
