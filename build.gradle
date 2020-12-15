@@ -10,18 +10,19 @@ repositories {
 }
 
 dependencies {
-    compile 'io.kubernetes:client-java:2.0.0'
-    compile group: 'org.yaml', name: 'snakeyaml', version: '1.23'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.4'
-    compile gradleApi()
-    compile localGroovy()
+    implementation gradleApi()
+    implementation localGroovy()
 
-    testCompile 'org.assertj:assertj-core:3.11.1'
-    testCompile 'org.mockito:mockito-all:1.10.19'
-    testCompile 'org.junit.jupiter:junit-jupiter-api:5.3.1'
-    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
-    testCompile 'org.junit.vintage:junit-vintage-engine:5.3.1'
-    testRuntime 'org.junit.jupiter:junit-jupiter-migrationsupport:5.3.1'
+    implementation 'io.kubernetes:client-java:2.0.0'
+    implementation group: 'org.yaml', name: 'snakeyaml', version: '1.23'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.4'
+
+    testImplementation 'org.assertj:assertj-core:3.11.1'
+    testImplementation 'org.mockito:mockito-all:1.10.19'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+    testImplementation 'org.junit.vintage:junit-vintage-engine:5.3.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-migrationsupport:5.3.1'
 }
 
 task sourceJar(type: Jar) {
@@ -45,4 +46,9 @@ publishing {
     repositories {
         mavenLocal()
     }
+}
+
+wrapper {
+    gradleVersion = '6.7.1'
+    distributionSha256Sum = '3239b5ed86c3838a37d983ac100573f64c1f3fd8e1eb6c89fa5f9529b5ec091d'
 }

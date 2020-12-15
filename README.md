@@ -21,12 +21,12 @@ Gradle plugin for kubernetes. It creates/deletes resource based on file content.
         address = 'http://localhost:8080'
         namespace = 'default'
         apiKey = 'AbCdEfGh01234'
-		authentication = 'BearerToken'
+        authentication = 'BearerToken'
     }
 
     task createDeploymentTask(type: CreateDeploymentTask) {
         requestFile = file('deployment.yaml')
-		responseFile = file("${buildDir}/deployment_response.yaml")
+        responseFile = file("${buildDir}/deployment_response.yaml")
     }
 
 ## Documentation
